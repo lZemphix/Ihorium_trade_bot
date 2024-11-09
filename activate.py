@@ -1,10 +1,7 @@
 from requests import Session
-from modules.telenotify import polling
-from modules.profit_calc import profit
 from datetime import datetime
 from bot import bot, config
 import traceback
-import threading
 import logging
 from requests.adapters import Retry, HTTPAdapter
 
@@ -15,7 +12,7 @@ if __name__ == '__main__':
     
     try:
         
-        threading.Thread(target=bot.start).start()
+        bot.start()
         
     except Exception as e:
         print('err', traceback.format_exc())

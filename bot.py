@@ -7,11 +7,12 @@ from client import Account, Market, Graph
 import logging
 from modules.telenotify import SendNotify
 from modules.orders_config import OrdersEdit
-from modules.notify_settings import NotifySettings
+from modules import lines_control
 
 class Bot:
 
     def __init__(self) -> None:
+        logging.info('ststs')
         print('trying to start...')
         self.symbol = self.get_config().get('symbol')
         self.interval = self.get_config().get('interval')
@@ -20,19 +21,19 @@ class Bot:
         self.stepSell = self.get_config().get('stepSell')
         self.send_notify = self.get_config().get('send_notify')
         self.RSI = self.get_config().get('RSI')
-        self.smart_trade = self.get_config().get('smartTrade')
         
         self.orders = OrdersEdit()
         self.account = Account()
         self.market = Market()
         self.graph = Graph()
         self.laps = laps
-        self.notify = SendNotify(True) if self.send_notify else SendNotify(False)
+        self.lines = lines_control.Lines()
+        self.notify = SendNotify(True if self.send_notify else False)
 
-        self.sell_position = False
         self.bot_status = True
         self.nem_notify_status = False
         self.sell_notify_status = True
+
         
     @staticmethod
     def get_config() -> dict:
@@ -40,7 +41,6 @@ class Bot:
             return json.load(f)
 
     def not_enough_money_notify(self) -> None:
-        #Ready
         self.notify.warning('Not enough money!')
         print('Not enough money!')
         self.nem_notify_status = True
@@ -69,15 +69,16 @@ class Bot:
                 time.sleep(3)
                 last_order = self.orders.get_last_order()
                 self.orders.add(last_order)
-
-                sell_price = self.orders.avg_order() + self.stepSell
-                self.market.place_sell_order(sell_price)
-                self.sell_position = True
+                self.lines.write(last_order)
                 self.sell_notify_status = True
 
-                print(f'first_buy {price_now}')
-                logging.info(f'Next buy at {price_now - self.stepBuy} or sell at {price_now + self.stepBuy}') 
-                self.notify.bought(f'The bot bought at price {price_now}')
+                # sell_price = self.orders.avg_order() + self.stepSell
+                # self.market.place_sell_order(sell_price)
+
+
+                print(f'first_buy {last_order}')
+                logging.info(f'Next buy at {last_order - self.stepBuy} or sell at {last_order + self.stepBuy}') 
+                self.notify.bought(f'The bot bought at price {last_order}')
 
     def averaging(self) -> None:
         df = self.graph.get_kline_dataframe()
@@ -93,13 +94,11 @@ class Bot:
                 self.notify.bought(f'The bot bought again at price ~{price_now}')
                 logging.info(f'Buy again at {price_now}')
                 self.nem_notify_status = False
-
-                self.market.cancel_order()
-
-                sell_price = self.orders.avg_order() + self.stepSell
-                self.market.place_sell_order(sell_price)
-                self.sell_position = True
+                self.lines.write(self.orders.avg_order())
                 self.sell_notify_status = True
+                # self.market.cancel_order()
+                # sell_price = self.orders.avg_order() + self.stepSell
+                # self.market.place_sell_order(sell_price)
 
     def write_profit(self, balance: int, date: datetime, laps_: int = 0, profit: float = 0.0):
         data = {'SOLUSDT': [{
@@ -114,21 +113,21 @@ class Bot:
             json.dump(data, f, indent=4)
 
     def add_profit(self):
-        with open('config/profit.json', 'r') as f:
-            get_balance = self.account.get_balance()
-            balance_usdt =float(get_balance.get('USDT'))
-            balance_sol = float(get_balance.get('SOL')) * self.market.get_actual_price()
-            balance = round(balance_sol + balance_usdt, 2)
-            try:
-                config = json.load(f)
-                last_date = datetime.strptime(config.get('SOLUSDT')[-1].get('date'), '%Y-%m-%d %H:%M:%S')
+        get_balance = self.account.get_balance()
+        balance_usdt =float(get_balance.get('USDT'))
+        balance_sol = float(get_balance.get('SOL')) * self.market.get_actual_price()
+        balance = round(balance_sol + balance_usdt, 2)
+        try:
+            with open('config/profit.json', 'r') as f:
+                profit = json.load(f)
+                last_date = datetime.strptime(profit.get('SOLUSDT')[-1].get('date'), '%Y-%m-%d %H:%M:%S')
                 if (datetime.now() - last_date).total_seconds() > 86400:
                     date = datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                    profit = round(sum(self.laps.get()), 3)
-                    self.write_profit(balance, date, laps.qty(), profit)
-            except:
-                date = f"{datetime.now().strftime('%Y-%m-%d')} 23:59:00"
-                self.write_profit(balance, date, 0, 0.0)
+                    new_profit = round(sum(self.laps.get()), 3)
+                    self.write_profit(balance, date, laps.qty(), new_profit)
+        except:
+            date = f"{datetime.now().strftime('%Y-%m-%d')} 23:59:00"
+            self.write_profit(balance, date, 0, 0.0)
 
         
     def start(self):
@@ -137,25 +136,33 @@ class Bot:
         logging.info('bot was started')
         while self.bot_status:
                 self.add_profit()
-                time.sleep(1)
                 self.sell_position = self.orders.get_open_orders()
                 if self.sell_position == False:
                     self.sell_notify()
                     self.orders.clear()
                 balance = self.account.get_balance()
 
+
                 #Первая покупка
                 if self.orders.get() is not None and self.orders.qty() == 0:
                     self.first_buy()
-       
+
                 #Усреднение
                 if self.orders.qty() != 0 and float(balance.get('USDT')) > self.amount_buy:                    
                     self.averaging()
 
+                if self.lines.sell_lines_qty() > 0:
+                    if self.lines.cross_utd() and self.lines.check_uper_line() > 0:
+                        actual_price = self.market.get_actual_price()
+                        self.market.place_sell_order(actual_price)
+                        self.lines.clear()
+
                 if self.orders.qty() != 0 and float(balance.get('USDT')) < self.amount_buy:
                     if self.nem_notify_status == False:
                             self.not_enough_money_notify()
-    
+        
+
+
 bot = Bot()
 
 config = bot.get_config()
