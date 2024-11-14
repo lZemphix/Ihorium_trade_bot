@@ -1,27 +1,29 @@
-from requests import Session
 from datetime import datetime
-from bot import bot, config
+import json
+from bot import bot
 import traceback
-import logging
-from requests.adapters import Retry, HTTPAdapter
+from logging import DEBUG, INFO, getLogger, basicConfig, FileHandler, StreamHandler
 
-if __name__ == '__main__':
-    session = Session()
-    retries = Retry(total=9999)
-    session.mount('https://', HTTPAdapter(max_retries=retries))
-    
-    try:
-        
+DATE_FMT = '%Y-%m-%d %H:%M:%S'
+FORMAT = '%(asctime)s : %(module)-10s : %(lineno)-4s : %(levelname)-8s : %(message)s'
+logger = getLogger()
+file = FileHandler('logs/logs.log', mode='a')
+console = StreamHandler()
+basicConfig(level=INFO, format=FORMAT, datefmt=DATE_FMT, handlers=[file, console])
+
+
+if __name__ == '__main__':    
+    try:   
+        logger.info('trying to start...')
         bot.start()
-        
     except Exception as e:
         print('err', traceback.format_exc())
-        print('bot was stoped!')
-
-        logging.info(traceback.format_exc())
-        if config.get('send_notify'):
-            bot.notify.warning('Bot was stoped!')
-            bot.notify.error(f'Time: {datetime.now()}')
+        logger.info('bot was stopped!')
+        with open('config/bot_config.json', 'r') as f:
+            config = json.load(f)
+            if config.get('send_notify'):
+                bot.notify.warning('Bot was stoped!')
+                bot.notify.error(f'Time: {datetime.now()}')
 
    
         
