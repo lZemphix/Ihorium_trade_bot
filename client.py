@@ -1,24 +1,19 @@
 import json
 from pybit.unified_trading import HTTP
 from pybit._http_manager import FailedRequestError
-import logging
+from logging import getLogger
 from dotenv import load_dotenv
 import os
 import pandas as pd
-from exceptions import exceptions as e
-
-
-logging.basicConfig(level=logging.INFO, filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%d-%m-%Y %H:%M:%S')
 
 load_dotenv()
 
+logger = getLogger(__name__)
+
 class Client:
-
-
     def __init__(self) -> None:
         with open('config/bot_config.json', 'r') as f:
             config = json.load(f)
-        
 
         self.API_KEY = os.getenv("API_KEY")
         self.API_KEY_SECRET = os.getenv("API_KEY_SECRET")
@@ -33,12 +28,12 @@ class Graph(Client):
     def __init__(self) -> None:
             super().__init__()
 
-    def get_kline(self, limit: int = 200) -> dict | FailedRequestError:
+    def get_kline(self, limit: int = 200) -> dict:
         try:
             kline = self.client.get_kline(symbol=self.symbol, interval=self.interval, limit=limit, category='spot')
             return kline
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
     def get_kline_dataframe(self) -> pd.DataFrame:
@@ -68,10 +63,8 @@ class Account(Client):
                 coin_values[get_balance[n].get('coin')] = (get_balance[n].get('walletBalance'))
             if coin_values != {}:
                 return coin_values
-            else:
-                raise e.BalanceException('Balance is empty!')
-        except FailedRequestError:
-            logging.error(e)
+        except FailedRequestError as e:
+            logger.error(e)
             return f"RequestError!"
 
 
@@ -81,7 +74,7 @@ class Market(Client):
         super().__init__()
 
 
-    def place_buy_order(self) -> None | FailedRequestError:
+    def place_buy_order(self) -> None:
         try:
             if self.amount_buy >= 3.6:
                 order = self.client.place_order(
@@ -91,13 +84,11 @@ class Market(Client):
                     orderType='Market',
                     qty=self.amount_buy,
                 )
-            else:
-                raise e.OrderException('Amount buy less than 3.6!')
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
-    def place_sell_order(self, price: int) -> FailedRequestError | None:
+    def place_sell_order(self) -> None:
         try:
             amount = float(Account().get_balance().get('SOL')[:5])
             order = self.client.place_order(
@@ -109,12 +100,13 @@ class Market(Client):
                 qty=amount
             )
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
-    def get_actual_price(self) -> dict | FailedRequestError:
+    def get_actual_coin_price(self) -> dict:
         orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
-        return float(orderbook.get('result').get('a')[0][0])
+        actual_price = float(orderbook.get('result').get('a')[0][0])
+        return actual_price
     
     def cancel_order(self) -> FailedRequestError | None:
         try:
@@ -124,15 +116,15 @@ class Market(Client):
                 orderLinkId = Account().get_open_positions().get('orderLinkId')
             )
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
-
-    
 
 if __name__ == '__main__':
     try:
-        print(Account().get_balance())
+        # print(Account().get_balance())
         # print(Graph().get_kline(5))
+        # print(Market().place_sell_order())
+        print(Account().get_orders()['result']['list'][0])
         pass
     except Exception as e:
         print(e)
