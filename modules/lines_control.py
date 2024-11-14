@@ -3,6 +3,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import json
 from modules import lines_control
 import client
+from logging import getLogger
+
+logger = getLogger(__name__)
+
 
 class Lines:
     def __init__(self) -> None: 
@@ -48,7 +52,7 @@ class Lines:
 
         elif mode == 'sell':
             with open(self.sell_lines_path, 'r') as sell:
-                return sell.read()
+                return sell.read().rstrip()
 
         elif mode == 'buy':
             with open(self.buy_lines_path, 'r') as buy:
@@ -58,14 +62,15 @@ class Lines:
     
     def clear(self):
         with open(self.buy_lines_path, 'w'):
-            with open(self.sell_lines_path, 'w'):
-                pass
+            pass
+        with open(self.sell_lines_path, 'w'):
+            pass
 
 
     def check_uper_line(self):
         lines = lines_control.Lines()
         market = client.Market()
-        actual_price = market.get_actual_price()
+        actual_price = market.get_actual_coin_price()
         sell_lines = lines.read('sell')
         count = 0
         f_sell_lines = [item for item in sell_lines.split('\n') if item != '']
@@ -73,28 +78,25 @@ class Lines:
             if actual_price > float(line):
                 count += 1
         return count
-
-
         
     def cross_utd(self):
         lines = lines_control.Lines()
         market = client.Market()
         graph = client.Graph()
-        try:
-            sell_lines = lines.read('sell')
-            last_two_klines = graph.get_kline(2)['result'].get('list')
-            last_kline = last_two_klines[1][4]
-            actual_price = market.get_actual_price()
-            for sell_line in sell_lines.split('\n'):
-                if actual_price < float(last_kline):
-                    if actual_price < float(sell_line) and float(last_kline) > float(sell_line):
-                        return True
-        except:
-            return False
+        # try:
+        sell_lines = lines.read('sell')
+        last_two_klines = graph.get_kline(2)['result'].get('list')
+        last_kline = float(last_two_klines[1][4])
+        actual_price = market.get_actual_coin_price()
+        for sell_line in sell_lines.split('\n')[::-1]:
+            if last_kline > float(sell_line):
+                if actual_price < float(sell_line) and actual_price < last_kline:
+                    logger.info('last_knile= %s, sell_line= %s, actual_price= %s', last_kline, sell_line, actual_price)
+                    return True
+
+        # except:
+        #     return False
                         
 
 if __name__ == '__main__':
-        Lines().write(196.1)
-        # Lines().read('buy')
-        # print(Lines().sell_lines_qty())
-        print(Lines().check_uper_line())
+    print(Lines().cross_utd())
