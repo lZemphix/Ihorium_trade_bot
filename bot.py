@@ -18,13 +18,13 @@ class Base:
 
         bot_config = self.get_config()
 
-        self.symbol = bot_config.get('symbol')
-        self.interval = bot_config.get('interval')
-        self.amount_buy = bot_config.get('amountBuy')
-        self.stepBuy = bot_config.get('stepBuy')
-        self.stepSell = bot_config.get('stepSell')
-        self.send_notify = bot_config.get('send_notify')
-        self.RSI = bot_config.get('RSI')
+        self.symbol: str = bot_config.get('symbol')
+        self.interval: str = bot_config.get('interval')
+        self.amount_buy: float = bot_config.get('amountBuy')
+        self.stepBuy: float = bot_config.get('stepBuy')
+        self.stepSell: float = bot_config.get('stepSell')
+        self.send_notify: bool = bot_config.get('send_notify')
+        self.RSI: float = bot_config.get('RSI')
         
         self.orders = OrdersEdit()
         self.account = Account()
@@ -86,12 +86,15 @@ class Bot(Base):
 
     def selling(self):
         global nem_notify_status
-        if self.lines.cross_utd():
-            self.market.place_sell_order()
-            self.lines.clear()
-            self.orders.clear()
-            self.notifies_edit.sell_notify()
-            nem_notify_status = False
+        df = self.graph.get_kline_dataframe()
+        actual_rsi: float = ta.momentum.rsi(df.close).iloc[-1]
+        if self.lines.cross_utd() and\
+            actual_rsi > self.RSI + 2:
+                self.market.place_sell_order()
+                self.lines.clear()
+                self.orders.clear()
+                self.notifies_edit.sell_notify()
+                nem_notify_status = False
 
 
     def start(self):
