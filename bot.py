@@ -85,8 +85,6 @@ class Bot(Base):
                     self.notify.bought(f'The bot bought again at price {last_order}')
 
     def selling(self):
-        # df = self.graph.get_kline_dataframe()
-        # actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
         global nem_notify_status
         if self.lines.cross_utd():
             self.market.place_sell_order()
@@ -104,21 +102,24 @@ class Bot(Base):
                 balance = self.account.get_balance()
 
                 #Первая покупка
-                if self.orders.qty() == 0 and float(balance.get('USDT')) > self.amount_buy:
-                    self.first_buy()
+                if (not self.orders.get_open_orders()) \
+                    and float(balance.get('USDT')) > self.amount_buy:
+                        self.first_buy()
 
                 #Усреднение
-                if self.orders.qty() != 0 and float(balance.get('USDT')) > self.amount_buy:                    
-                    self.averaging()
+                if self.orders.qty() != 0 \
+                    and float(balance.get('USDT')) > self.amount_buy:                    
+                        self.averaging()
 
-                if self.lines.sell_lines_qty() > 0:
-                    self.selling()
+                if self.lines.sell_lines_qty() > 0 \
+                    and (self.orders.avg_order() + self.stepSell) < self.market.get_actual_coin_price():
+                        self.selling()
 
-                if self.orders.qty() != 0 and (float(balance.get('USDT')) < self.amount_buy):
-                    global nem_notify_status
-
-                    if nem_notify_status == False:
-                        self.notifies_edit.not_enough_money_notify()
+                if self.orders.qty() != 0 \
+                    and (float(balance.get('USDT')) < self.amount_buy):
+                        global nem_notify_status
+                        if nem_notify_status == False:
+                            self.notifies_edit.not_enough_money_notify()
         
 
 

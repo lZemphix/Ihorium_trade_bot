@@ -73,7 +73,6 @@ class Market(Client):
     def __init__(self) -> None:
         super().__init__()
 
-
     def place_buy_order(self) -> None:
         try:
             if self.amount_buy >= 3.6:
@@ -103,12 +102,12 @@ class Market(Client):
             logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
-    def get_actual_coin_price(self) -> dict:
+    def get_actual_coin_price(self) -> float:
         orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
         actual_price = float(orderbook.get('result').get('a')[0][0])
         return actual_price
     
-    def cancel_order(self) -> FailedRequestError | None:
+    def cancel_order(self) -> None:
         try:
             order = self.client.cancel_order(
                 category='spot',
@@ -121,10 +120,6 @@ class Market(Client):
 
 if __name__ == '__main__':
     try:
-        # print(Account().get_balance())
-        # print(Graph().get_kline(5))
-        # print(Market().place_sell_order())
-        print(Account().get_orders()['result']['list'][0])
         pass
     except Exception as e:
         print(e)
