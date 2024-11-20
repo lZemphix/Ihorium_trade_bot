@@ -21,7 +21,7 @@ class LapsEdit:
     def get(self) -> list[float]:
         with open(self.path, 'r') as f:
             file = f.readlines()
-            print([float(el.replace('\n', '')) for el in file if el != ''])
+            return [float(el.replace('\n', '')) for el in file if el != '']
         
     def qty(self) -> int:
         orders = self.get()

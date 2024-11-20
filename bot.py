@@ -130,22 +130,27 @@ class ProfitEdit(Base):
     def __init__(self) -> None:
         super().__init__()
     
-    def write_profit(self, balance: int, date: str, laps_: int = 0, profit: float = 0.0):
+    def _make_profit(self, balance: int, date: str, laps_: int = 0, profit: float = 0.0) -> dict:
         new_entry = {
             'date': date,
             'balance': balance,
             'laps': laps_,
             'profit': profit}
-        try:
-            with open('config/profit.json', 'r+') as f:
+        
+        return new_entry
+        
+    def write_first_profit(self, balance: int, date: str) -> None:
+        entry = self._make_profit(balance, date, 0, 0)
+        with open('config/profit.json' , 'w') as file: 
+            json.dump({'SOLUSDT': [entry]}, file, indent=4)
+
+    def write_profit(self, balance: int, date: str, laps_: int, profit: float) -> None:
+            with open('config/profit.json', 'r') as f:
                 existing_data = json.load(f)
+                new_entry = self._make_profit(balance, date, laps_, profit)
                 existing_data['SOLUSDT'].append(new_entry)
-                json.dump(existing_data, f, indent=4)
-
-        except Exception:
             with open('config/profit.json', 'w') as f:
-                json.dump({'SOLUSDT': [new_entry]}, f, indent=4)
-
+                json.dump(existing_data, f, indent=4)
 
     def add_profit(self):
         get_balance = self.account.get_balance()
@@ -155,16 +160,20 @@ class ProfitEdit(Base):
         try:
             with open('config/profit.json', 'r') as f:
                 data = json.load(f)
+                print(data)
                 last_date = data.get('SOLUSDT')[-1].get('date')
                 last_date = datetime.strptime(last_date ,'%Y-%m-%d %H:%M:%S')
+                print(last_date)
                 time_diff = (datetime.now() - last_date).total_seconds()
                 if time_diff > 86399:
-                    actual_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    print('times')
+                    actual_date = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
                     profit = round(sum(self.laps.get()), 3)
                     self.write_profit(balance, actual_date, self.laps.qty(), profit)
+
         except:
             actual_date = f"{datetime.now().strftime('%Y-%m-%d')} 23:59:59"
-            self.write_profit(balance, actual_date, 0, 0.0)
+            self.write_first_profit(balance, actual_date)
 
 class NotifiesEdit(Base):
     def __init__(self) -> None:
@@ -187,5 +196,5 @@ bot = Bot()
 
 # config = bot.get_config()
 if __name__ == '__main__':
-    print(OrdersEdit().get())
+    ProfitEdit().add_profit()
     pass
