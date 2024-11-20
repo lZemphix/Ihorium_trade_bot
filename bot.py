@@ -151,6 +151,7 @@ class ProfitEdit(Base):
                 existing_data['SOLUSDT'].append(new_entry)
             with open('config/profit.json', 'w') as f:
                 json.dump(existing_data, f, indent=4)
+                self.laps.clear()
 
     def add_profit(self):
         get_balance = self.account.get_balance()
