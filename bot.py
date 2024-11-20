@@ -161,13 +161,10 @@ class ProfitEdit(Base):
         try:
             with open('config/profit.json', 'r') as f:
                 data = json.load(f)
-                print(data)
                 last_date = data.get('SOLUSDT')[-1].get('date')
                 last_date = datetime.strptime(last_date ,'%Y-%m-%d %H:%M:%S')
-                print(last_date)
                 time_diff = (datetime.now() - last_date).total_seconds()
                 if time_diff > 86399:
-                    print('times')
                     actual_date = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
                     profit = round(sum(self.laps.get()), 3)
                     self.write_profit(balance, actual_date, self.laps.qty(), profit)
