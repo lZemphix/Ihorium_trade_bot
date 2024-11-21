@@ -2,7 +2,6 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Any
 from client import Account, Market
-from exceptions import exceptions as e
 
 class OrdersEdit:
 
@@ -19,8 +18,6 @@ class OrdersEdit:
     def get_open_orders(self) -> bool:
         open_orders = self.account.client.get_open_orders(category='spot')
         return False if open_orders.get('result').get('list') == [] else True
-        
-
 
     def add(self, data: Any) -> int:
         with open(self.path, 'a') as f:
@@ -47,7 +44,7 @@ class OrdersEdit:
         
     
     def avg_order(self) -> float:
-        avg = sum(self.get()) / self.qty()
+        avg = sum(self.get()) / (self.qty() if self.qty() != 0 else 1)
         return avg
     
 

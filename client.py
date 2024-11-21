@@ -1,20 +1,16 @@
 import json
 from pybit.unified_trading import HTTP
 from pybit._http_manager import FailedRequestError
-import logging
+from logging import getLogger
 from dotenv import load_dotenv
 import os
 import pandas as pd
-from exceptions import exceptions as e
-
-
-logging.basicConfig(level=logging.INFO, filename='logs/logs.log', filemode='w', format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%d-%m-%Y %H:%M:%S')
 
 load_dotenv()
 
+logger = getLogger(__name__)
+
 class Client:
-
-
     def __init__(self) -> None:
         with open('config/bot_config.json', 'r') as f:
             config = json.load(f)
@@ -32,12 +28,12 @@ class Graph(Client):
     def __init__(self) -> None:
             super().__init__()
 
-    def get_kline(self) -> dict | FailedRequestError:
+    def get_kline(self, limit: int = 200) -> dict:
         try:
-            kline = self.client.get_kline(symbol=self.symbol, interval=self.interval)
+            kline = self.client.get_kline(symbol=self.symbol, interval=self.interval, limit=limit, category='spot')
             return kline
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
     def get_kline_dataframe(self) -> pd.DataFrame:
@@ -49,22 +45,6 @@ class Graph(Client):
         dataframe['close'] = pd.to_numeric(dataframe['close'])
         return dataframe
     
-    def get_kline_4h(self):
-        try:
-            kline = self.client.get_kline(symbol=self.symbol, interval='240')
-            return kline
-        except FailedRequestError as e:
-            logging.error(e)
-            return f"ErrorCode: {e.status_code}"
-
-    def get_kline_dataframe_4h(self) -> pd.DataFrame:
-        dataframe = pd.DataFrame(self.get_kline_4h()['result']['list'])
-        dataframe.columns = ['time', 'open', 'high', 'low', 'close', 'volume', 'turnover']
-        dataframe.set_index('time', inplace=True)
-        dataframe.index = pd.to_numeric(dataframe.index, downcast='integer').astype('datetime64[ms]')    
-        dataframe = dataframe[::-1]
-        dataframe['close'] = pd.to_numeric(dataframe['close'])
-        return dataframe
     
 class Account(Client):
 
@@ -74,11 +54,6 @@ class Account(Client):
     def get_orders(self) -> tuple:
         orders = self.client.get_order_history(category='spot')
         return orders
-    
-    def get_open_positions(self) -> bool:
-        open_orders = self.client.get_open_orders(category='spot')
-        return open_orders.get('result').get('list')[0]
-
 
     def get_balance(self) -> dict:   
         try:
@@ -88,10 +63,8 @@ class Account(Client):
                 coin_values[get_balance[n].get('coin')] = (get_balance[n].get('walletBalance'))
             if coin_values != {}:
                 return coin_values
-            else:
-                raise e.BalanceException('Balance is empty!')
-        except FailedRequestError:
-            logging.error(e)
+        except FailedRequestError as e:
+            logger.error(e)
             return f"RequestError!"
 
 
@@ -100,8 +73,7 @@ class Market(Client):
     def __init__(self) -> None:
         super().__init__()
 
-
-    def place_buy_order(self) -> None | FailedRequestError:
+    def place_buy_order(self) -> None:
         try:
             if self.amount_buy >= 3.6:
                 order = self.client.place_order(
@@ -111,32 +83,42 @@ class Market(Client):
                     orderType='Market',
                     qty=self.amount_buy,
                 )
-            else:
-                raise e.OrderException('Amount buy less than 3.6!')
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
-    def place_sell_order(self, price: int) -> FailedRequestError | None:
+    def place_sell_order(self) -> None:
         try:
             amount = float(Account().get_balance().get('SOL')[:5])
             order = self.client.place_order(
                 category='spot',
                 symbol=self.symbol,
                 side='Sell',
-                orderType='Limit',
-                price=round(price, 2),
+                orderType='Market',
                 qty=amount
             )
         except FailedRequestError as e:
-            logging.error(e)
-            return f"ErrorCode: {e.status_code}"
+            self._purchase()
+            self.place_sell_order()
 
-    def get_actual_price(self) -> dict | FailedRequestError:
+    def _purchase(self) -> None:
+        amount = float(Account().get_balance().get('SOL')[:7])
+        if amount < 0.0231:
+            self.client.place_order(
+                    category='spot',
+                    symbol=self.symbol,
+                    side='Buy',
+                    orderType='Market',
+                    qty=1,
+                )
+
+
+    def get_actual_coin_price(self) -> float:
         orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
-        return float(orderbook.get('result').get('a')[0][0])
+        actual_price = float(orderbook.get('result').get('a')[0][0])
+        return actual_price
     
-    def cancel_order(self) -> FailedRequestError | None:
+    def cancel_order(self) -> None:
         try:
             order = self.client.cancel_order(
                 category='spot',
@@ -144,14 +126,12 @@ class Market(Client):
                 orderLinkId = Account().get_open_positions().get('orderLinkId')
             )
         except FailedRequestError as e:
-            logging.error(e)
+            logger.error(e)
             return f"ErrorCode: {e.status_code}"
-    
 
 if __name__ == '__main__':
     try:
-        # print(Account().get_open_positions())
-        
-        pass
+        Market()._purchase()
+        # Market().place_buy_order()
     except Exception as e:
         print(e)

@@ -1,10 +1,10 @@
 {
     "symbol" : "SOLUSDT",
     "interval" : "5",
-    "amountBuy" : 5.89,
+    "amountBuy" : 5,
     "RSI": 41,
-    "stepBuy": 0.8,
+    "stepBuy": 0.5,
     "stepSell": 0.5,
-    "smartTrade": false,
+    "lines": 30,
     "send_notify": true
 }

@@ -1,30 +1,27 @@
-from requests import Session
-from modules.telenotify import polling
-from modules.profit_calc import profit
 from datetime import datetime
-from bot import bot, config
+import json
+from bot import bot
 import traceback
-import threading
-import logging
-from requests.adapters import Retry, HTTPAdapter
+from logging import getLogger
+from modules import logger as l
 
-if __name__ == '__main__':
-    session = Session()
-    retries = Retry(total=9999)
-    session.mount('https://', HTTPAdapter(max_retries=retries))
-    
-    try:
-        
-        threading.Thread(target=bot.start).start()
-        
+logger = getLogger('root')
+
+def main() -> None:
+    try:   
+        logger.info('trying to start...')
+        bot.start()
     except Exception as e:
-        print('err', traceback.format_exc())
-        print('bot was stoped!')
+        logger.error(traceback.format_exc())
+        logger.info('bot was stopped!')
+        with open('config/bot_config.json', 'r') as f:
+            config = json.load(f)
+            if config.get('send_notify'):
+                bot.notify.warning('Bot was stoped!')
+                bot.notify.error(f'Time: {datetime.now()}')
 
-        logging.info(traceback.format_exc())
-        if config.get('send_notify'):
-            bot.notify.warning('Bot was stoped!')
-            bot.notify.error(f'Time: {datetime.now()}')
+if __name__ == '__main__':    
+    main()
 
    
         
