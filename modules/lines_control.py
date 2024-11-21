@@ -25,19 +25,36 @@ class Lines:
                 buy_lines.append(round(buy_price-step_buy*(i+1),2))
             return sell_lines, buy_lines
         
-    def write(self, buy_price: float):
+    def write(self, buy_price: float, mode: str = 'both'):
         sell_lines, buy_lines = self._create(buy_price)
-        with open(self.buy_lines_path, 'w') as buy:
+        if mode == 'both':
+            with open(self.buy_lines_path, 'w') as buy:
+                with open(self.sell_lines_path, 'w') as sell:
+                    for sells, buys in zip(sell_lines, buy_lines):
+                        buy.write(f'{buys}\n')
+                        sell.write(f'{sells}\n')
+
+        elif mode == 'sell':
             with open(self.sell_lines_path, 'w') as sell:
-                for sells, buys in zip(sell_lines, buy_lines):
-                    buy.write(f'{buys}\n')
+                for sells in sell_lines:
                     sell.write(f'{sells}\n')
+
+        elif mode == 'buy':
+            with open(self.buy_lines_path, 'w') as buy:
+                for buys in buy_lines:
+                    buy.write(f'{buys}\n')
 
     def sell_lines_qty(self):
         with open(self.sell_lines_path, 'r') as file:
             sell = file.read()
             qty = len(sell.split('\n')) - 1
             return qty if sell != '' else 0
+
+    def buy_lines_qty(self):
+        with open(self.buy_lines_path, 'r') as file:
+            buy = file.read()
+            qty = len(buy.split('\n')) - 1
+            return qty if buy != '' else 0
 
     def read(self, mode: str = 'both'):
         """
@@ -58,13 +75,22 @@ class Lines:
             with open(self.buy_lines_path, 'r') as buy:
                 return buy.read()
         else:
-            print('Modes: both, sell or buy')
+            logger.error('Modes: both, sell or buy')
     
-    def clear(self):
-        with open(self.buy_lines_path, 'w'):
-            pass
-        with open(self.sell_lines_path, 'w'):
-            pass
+    def clear(self, mode: str = 'both'):
+        if mode == 'both':
+            with open(self.buy_lines_path, 'w'):
+                pass
+            with open(self.sell_lines_path, 'w'):
+                pass
+
+        elif mode == 'sell':
+            with open(self.sell_lines_path, 'w'):
+                pass
+
+        elif mode == 'buy':
+            with open(self.buy_lines_path, 'w'):
+                pass
 
 
     def check_uper_line(self):
@@ -83,20 +109,31 @@ class Lines:
         lines = lines_control.Lines()
         market = client.Market()
         graph = client.Graph()
-        # try:
         sell_lines = lines.read('sell')
         last_two_klines = graph.get_kline(2)['result'].get('list')
         last_kline = float(last_two_klines[1][4])
         actual_price = market.get_actual_coin_price()
+
         for sell_line in sell_lines.split('\n')[::-1]:
             if last_kline > float(sell_line):
                 if actual_price < float(sell_line) and actual_price < last_kline:
                     logger.info('last_knile= %s, sell_line= %s, actual_price= %s', last_kline, sell_line, actual_price)
                     return True
-
-        # except:
-        #     return False
                         
+    def cross_dtu(self):
+        lines = lines_control.Lines()
+        market = client.Market()
+        graph = client.Graph()
+        buy_lines = lines.read('buy')
+        last_two_klines = graph.get_kline(2)['result'].get('list')
+        last_kline = float(last_two_klines[1][4])
+        actual_price = market.get_actual_coin_price()
 
+        for buy_line in buy_lines.split('\n')[::-1]:
+            if last_kline < float(buy_line):
+                if actual_price > float(buy_line) and actual_price > last_kline:
+                    logger.info('last_knile= %s, buy_line= %s, actual_price= %s', last_kline, buy_line, actual_price)
+                    return True
+                
 if __name__ == '__main__':
     print(Lines().cross_utd())

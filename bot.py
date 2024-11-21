@@ -51,38 +51,39 @@ class Bot(Base):
         df = self.graph.get_kline_dataframe()
         balance = self.account.get_balance()
         actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
-        if actual_rsi < self.RSI and \
-                self.lines.read('sell') == '':
-                    logger.info('if: actual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
-                    self.market.place_buy_order()
-                    time.sleep(0.1)
-                    last_order = self.orders.get_last_order()
-                    self.orders.add(last_order)
-                    self.lines.write(last_order)
-                    logger.info('First bought!')
-                    self.notify.bought(f'The bot bought at price {last_order}')
+        if actual_rsi < self.RSI:
+            if self.lines.read('buy') == '':
+                logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
+                self.market.place_buy_order()
+                time.sleep(0.1)
+                last_order = self.orders.get_last_order()
+                self.orders.add(last_order)
+                self.lines.write(last_order)
+                logger.info(f'First buy for ${last_order}')
+                self.notify.bought(f'First buy for ${last_order}. Balance: {balance}')
 
     def averaging(self) -> None:
         df = self.graph.get_kline_dataframe()
-        price_now = self.market.get_actual_coin_price()
-        actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
-        price_diff = (self.orders.get_last_order()- price_now)
         balance = self.account.get_balance()
+        actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
+        price_now = self.market.get_actual_coin_price()
+        price_diff = (self.orders.get_last_order()- price_now)
 
         if actual_rsi < self.RSI:
             if price_diff > self.stepBuy:
                 if float(balance['USDT']) > self.amount_buy:
-                    self.market.place_buy_order()
-                    time.sleep(3)
-
-                    self.orders.add(self.orders.get_last_order())
-                    self.lines.write(self.orders.avg_order())
-
-                    time.sleep(3)
-
-                    last_order = self.orders.get_last_order()
-                    logger.info(f'averating {last_order}')
-                    self.notify.bought(f'The bot bought again at price {last_order}')
+                    if self.lines.cross_dtu():
+                        logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
+                        self.market.place_buy_order()
+                        time.sleep(1)
+                        last_order = self.orders.get_last_order()
+                        self.orders.add(last_order)
+                        self.lines.write(self.orders.avg_order(), 'sell')
+                        self.lines.write(last_order)
+                        time.sleep(1)
+                        logger.info(f'Averating for ${last_order}')
+                        self.notify.bought(f'Averating for ${last_order}. Balance: {balance}')
+                    
 
     def selling(self):
         global nem_notify_status
@@ -98,7 +99,7 @@ class Bot(Base):
 
 
     def start(self):
-        self.notify.bot_status(f'Bot started trading on pair {self.symbol}')
+        self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()}')
         logger.info('Bot started trading on pair %s', self.symbol)
         while True:
                 self.profit_edit.add_profit()
@@ -186,8 +187,8 @@ class NotifiesEdit(Base):
     def sell_notify(self) -> None:
             time.sleep(2)
             last_order = self.orders.get_last_order()
-            logger.info('sold for %s', last_order)
-            self.notify.sold(f'Bot close the position at {last_order}')
+            logger.info('Sold for %s', last_order)
+            self.notify.sold(f'Sold for {last_order}')
             self.laps.add(self.laps.calculate_profit())
 
 bot = Bot()
