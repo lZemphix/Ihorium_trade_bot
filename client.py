@@ -95,12 +95,23 @@ class Market(Client):
                 symbol=self.symbol,
                 side='Sell',
                 orderType='Market',
-                # price=round(price, 2),
                 qty=amount
             )
         except FailedRequestError as e:
-            logger.error(e)
-            return f"ErrorCode: {e.status_code}"
+            self._purchase()
+            self.place_sell_order()
+
+    def _purchase(self) -> None:
+        amount = float(Account().get_balance().get('SOL')[:7])
+        if amount < 0.0231:
+            self.client.place_order(
+                    category='spot',
+                    symbol=self.symbol,
+                    side='Buy',
+                    orderType='Market',
+                    qty=1,
+                )
+
 
     def get_actual_coin_price(self) -> float:
         orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
@@ -120,6 +131,7 @@ class Market(Client):
 
 if __name__ == '__main__':
     try:
-        pass
+        Market()._purchase()
+        # Market().place_buy_order()
     except Exception as e:
         print(e)
