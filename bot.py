@@ -106,7 +106,7 @@ class Bot(Base):
                 balance = self.account.get_balance()
 
                 #Первая покупка
-                if (not self.orders.get_open_orders()) \
+                if self.orders.qty() != 0 \
                     and float(balance.get('USDT')) > self.amount_buy:
                         self.first_buy()
 
