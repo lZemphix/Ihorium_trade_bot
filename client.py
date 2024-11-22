@@ -73,7 +73,7 @@ class Market(Client):
     def __init__(self) -> None:
         super().__init__()
 
-    def place_buy_order(self) -> None:
+    def place_buy_order(self) -> int:
         try:
             if self.amount_buy >= 3.6:
                 order = self.client.place_order(
@@ -97,7 +97,7 @@ class Market(Client):
                 orderType='Market',
                 qty=amount
             )
-        except FailedRequestError as e:
+        except:
             self._purchase()
             self.place_sell_order()
 

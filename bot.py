@@ -55,12 +55,12 @@ class Bot(Base):
             if self.lines.read('buy') == '':
                 logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                 self.market.place_buy_order()
-                time.sleep(0.1)
+                time.sleep(1)
                 last_order = self.orders.get_last_order()
                 self.orders.add(last_order)
                 self.lines.write(last_order)
                 logger.info(f'First buy for ${last_order}')
-                self.notify.bought(f'First buy for ${last_order}. Balance: {balance}')
+                self.notify.bought(f'First buy for ${last_order}. Balance: {balance["USDT"]}')
 
     def averaging(self) -> None:
         df = self.graph.get_kline_dataframe()
@@ -82,7 +82,7 @@ class Bot(Base):
                         self.lines.write(last_order)
                         time.sleep(1)
                         logger.info(f'Averating for ${last_order}')
-                        self.notify.bought(f'Averating for ${last_order}. Balance: {balance}')
+                        self.notify.bought(f'Averating for ${last_order}. Balance: {balance["USDT"]}')
                     
 
     def selling(self):
@@ -99,7 +99,7 @@ class Bot(Base):
 
 
     def start(self):
-        self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()}')
+        self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()["USDT"]}')
         logger.info('Bot started trading on pair %s', self.symbol)
         while True:
                 self.profit_edit.add_profit()
@@ -167,12 +167,27 @@ class ProfitEdit(Base):
                 time_diff = (datetime.now() - last_date).total_seconds()
                 if time_diff > 86399:
                     actual_date = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-                    profit = round(sum(self.laps.get()), 3)
+                    profit = self.calculate_profit()
                     self.write_profit(balance, actual_date, self.laps.qty(), profit)
 
         except:
             actual_date = f"{datetime.now().strftime('%Y-%m-%d')} 23:59:59"
             self.write_first_profit(balance, actual_date)
+
+    def calculate_profit(self) -> float:
+        orders = self.account.get_orders()['result']['list']
+        sell_price = 0
+        values = []
+        for order in orders:
+            if order.get('side') == 'Sell' and sell_price == 0:
+                sell_price = float(order.get('cumExecValue'))
+            elif order.get('side') == 'Buy':
+                values.append(float(order.get('cumExecValue')))
+            else:
+                break
+        profit = round(sell_price - sum(values), 3)
+        return profit
+
 
 class NotifiesEdit(Base):
     def __init__(self) -> None:
