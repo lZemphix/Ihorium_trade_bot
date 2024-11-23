@@ -73,7 +73,7 @@ class Lines:
 
         elif mode == 'buy':
             with open(self.buy_lines_path, 'r') as buy:
-                return buy.read()
+                return buy.read().rstrip()
         else:
             logger.error('Modes: both, sell or buy')
     
@@ -106,34 +106,41 @@ class Lines:
         return count
         
     def cross_utd(self):
-        lines = lines_control.Lines()
-        market = client.Market()
-        graph = client.Graph()
-        sell_lines = lines.read('sell')
-        last_two_klines = graph.get_kline(2)['result'].get('list')
-        last_kline = float(last_two_klines[1][4])
-        actual_price = market.get_actual_coin_price()
+        try:
+            lines = lines_control.Lines()
+            market = client.Market()
+            graph = client.Graph()
+            sell_lines = lines.read('sell')
+            last_two_klines = graph.get_kline(2)['result'].get('list')
+            last_kline = float(last_two_klines[1][4])
+            actual_price = market.get_actual_coin_price()
 
-        for sell_line in sell_lines.split('\n')[::-1]:
-            if last_kline > float(sell_line):
-                if actual_price < float(sell_line) and actual_price < last_kline:
-                    logger.info('last_knile= %s, sell_line= %s, actual_price= %s', last_kline, sell_line, actual_price)
-                    return True
-                        
+            for sell_line in sell_lines.split('\n')[::-1]:
+                if last_kline > float(sell_line):
+                    if actual_price < float(sell_line) and actual_price < last_kline:
+                        logger.info('last_knile= %s, sell_line= %s, actual_price= %s', last_kline, sell_line, actual_price)
+                        return True
+        except Exception as e:
+            logger.warning('utd exception %s', e)
+            pass                
     def cross_dtu(self):
-        lines = lines_control.Lines()
-        market = client.Market()
-        graph = client.Graph()
-        buy_lines = lines.read('buy')
-        last_two_klines = graph.get_kline(2)['result'].get('list')
-        last_kline = float(last_two_klines[1][4])
-        actual_price = market.get_actual_coin_price()
+        try:
+            lines = lines_control.Lines()
+            market = client.Market()
+            graph = client.Graph()
+            buy_lines = lines.read('buy')
+            last_two_klines = graph.get_kline(2)['result'].get('list')
+            last_kline = float(last_two_klines[1][4])
+            actual_price = market.get_actual_coin_price()
 
-        for buy_line in buy_lines.split('\n')[::-1]:
-            if last_kline < float(buy_line):
-                if actual_price > float(buy_line) and actual_price > last_kline:
-                    logger.info('last_knile= %s, buy_line= %s, actual_price= %s', last_kline, buy_line, actual_price)
-                    return True
+            for buy_line in buy_lines.split('\n')[::-1]:
+                if last_kline < float(buy_line):
+                    if actual_price > float(buy_line) and actual_price > last_kline:
+                        logger.info('last_knile= %s, buy_line= %s, actual_price= %s', last_kline, buy_line, actual_price)
+                        return True
+        except Exception as e: 
+            logger.warning('dtu exepton! %s', e)
+            pass
                 
 if __name__ == '__main__':
-    print(Lines().cross_utd())
+    print(Lines().write(254.4))

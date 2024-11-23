@@ -28,7 +28,6 @@ class Profit:
         self.notify.bot_status('Generating report...')
         status_code = self.notify.send_file('report.xlsx')
         return status_code
-
     
 profit = Profit()
 

@@ -32,13 +32,18 @@ class LapsEdit:
         return round(avg,3)
     
     def calculate_profit(self) -> float:
-        with open('config/bot_config.json', 'r') as f:
-            config = json.load(f)
-            step = config.get('stepSell')
-            coin_price = float(self.market.get_actual_coin_price())
-            amount_buy = config.get('amountBuy')
-            approx_profit = round((amount_buy/(0.01*(coin_price - step))*(coin_price*0.01)) - amount_buy, 3)
-            return approx_profit
+        orders = self.account.get_orders()['result']['list']
+        sell_price = 0
+        values = []
+        for order in orders:
+            if order.get('side') == 'Sell' and sell_price == 0:
+                sell_price = float(order.get('cumExecValue'))
+            elif order.get('side') == 'Buy':
+                values.append(float(order.get('cumExecValue')))
+            else:
+                break
+        profit = round(sell_price - sum(values), 3)
+        return profit
 
     def add(self, data: Any) -> int:
         with open(self.path, 'a') as f:

@@ -47,7 +47,7 @@ class Bot(Base):
         self.notifies_edit = NotifiesEdit()
 
 
-    def first_buy(self) -> int:
+    def first_buy(self):
         df = self.graph.get_kline_dataframe()
         balance = self.account.get_balance()
         actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
@@ -67,12 +67,12 @@ class Bot(Base):
         balance = self.account.get_balance()
         actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
         price_now = self.market.get_actual_coin_price()
-        price_diff = (self.orders.get_last_order()- price_now)
 
         if actual_rsi < self.RSI:
-            if price_diff > self.stepBuy:
-                if float(balance['USDT']) > self.amount_buy:
-                    if self.lines.cross_dtu():
+            if float(balance['USDT']) > self.amount_buy:
+                if self.lines.cross_dtu():
+                    price_diff = (self.orders.get_last_order()- price_now)
+                    if price_diff > self.stepBuy:
                         logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                         self.market.place_buy_order()
                         time.sleep(1)
@@ -86,43 +86,45 @@ class Bot(Base):
                     
 
     def selling(self):
-        global nem_notify_status
         df = self.graph.get_kline_dataframe()
+        global nem_notify_status
         actual_rsi: float = ta.momentum.rsi(df.close).iloc[-1]
-        if self.lines.cross_utd() and\
-            actual_rsi > self.RSI + 2:
-                self.market.place_sell_order()
-                self.lines.clear()
-                self.orders.clear()
-                self.notifies_edit.sell_notify()
-                nem_notify_status = False
+        if actual_rsi > self.RSI + 2:
+            if self.lines.cross_utd():
+                if (self.orders.avg_order() + self.stepSell) < self.market.get_actual_coin_price():
+                    self.market.place_sell_order()
+                    self.lines.clear()
+                    self.orders.clear()
+                    self.notifies_edit.sell_notify()
+                    nem_notify_status = False
 
 
     def start(self):
         self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()["USDT"]}')
         logger.info('Bot started trading on pair %s', self.symbol)
         while True:
+                time.sleep(1)
+                df = self.graph.get_kline_dataframe()
                 self.profit_edit.add_profit()
                 balance = self.account.get_balance()
 
                 #Первая покупка
-                if self.orders.qty() != 0 \
-                    and float(balance.get('USDT')) > self.amount_buy:
+                if self.orders.qty() == 0:
+                    if float(balance.get('USDT')) > self.amount_buy:
                         self.first_buy()
 
                 #Усреднение
-                if self.orders.qty() != 0 \
-                    and float(balance.get('USDT')) > self.amount_buy:                    
+                if self.orders.qty() != 0:
+                    if float(balance.get('USDT')) > self.amount_buy:                    
                         self.averaging()
 
-                if self.lines.sell_lines_qty() > 0 \
-                    and (self.orders.avg_order() + self.stepSell) < self.market.get_actual_coin_price():
-                        self.selling()
+                if self.lines.sell_lines_qty() > 0:
+                    self.selling()
 
-                if self.orders.qty() != 0 \
-                    and (float(balance.get('USDT')) < self.amount_buy):
-                        global nem_notify_status
-                        if nem_notify_status == False:
+                if self.orders.qty() != 0:
+                    global nem_notify_status
+                    if nem_notify_status == False:
+                        if(float(balance.get('USDT')) < self.amount_buy):
                             self.notifies_edit.not_enough_money_notify()
         
 
@@ -157,7 +159,10 @@ class ProfitEdit(Base):
     def add_profit(self):
         get_balance = self.account.get_balance()
         balance_usdt =float(get_balance.get('USDT'))
-        balance_sol = float(get_balance.get('SOL')) * self.market.get_actual_coin_price()
+        try:
+            balance_sol = float(get_balance.get('SOL')) * self.market.get_actual_coin_price()
+        except:
+            balance_sol = 0
         balance = round(balance_sol + balance_usdt, 2)
         try:
             with open('config/profit.json', 'r') as f:
@@ -167,26 +172,14 @@ class ProfitEdit(Base):
                 time_diff = (datetime.now() - last_date).total_seconds()
                 if time_diff > 86399:
                     actual_date = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-                    profit = self.calculate_profit()
+                    profit = self.orders.get_sum()
                     self.write_profit(balance, actual_date, self.laps.qty(), profit)
 
         except:
+            logger.warning('exception add profit')
             actual_date = f"{datetime.now().strftime('%Y-%m-%d')} 23:59:59"
             self.write_first_profit(balance, actual_date)
 
-    def calculate_profit(self) -> float:
-        orders = self.account.get_orders()['result']['list']
-        sell_price = 0
-        values = []
-        for order in orders:
-            if order.get('side') == 'Sell' and sell_price == 0:
-                sell_price = float(order.get('cumExecValue'))
-            elif order.get('side') == 'Buy':
-                values.append(float(order.get('cumExecValue')))
-            else:
-                break
-        profit = round(sell_price - sum(values), 3)
-        return profit
 
 
 class NotifiesEdit(Base):

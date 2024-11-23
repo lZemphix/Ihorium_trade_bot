@@ -28,23 +28,25 @@ class Graph(Client):
     def __init__(self) -> None:
             super().__init__()
 
-    def get_kline(self, limit: int = 200) -> dict:
+    def get_kline(self, limit: int = 50) -> dict:
         try:
             kline = self.client.get_kline(symbol=self.symbol, interval=self.interval, limit=limit, category='spot')
             return kline
-        except FailedRequestError as e:
+        except Exception as e:
             logger.error(e)
-            return f"ErrorCode: {e.status_code}"
+            pass
 
     def get_kline_dataframe(self) -> pd.DataFrame:
-        dataframe = pd.DataFrame(self.get_kline()['result']['list'])
-        dataframe.columns = ['time', 'open', 'high', 'low', 'close', 'volume', 'turnover']
-        dataframe.set_index('time', inplace=True)
-        dataframe.index = pd.to_numeric(dataframe.index, downcast='integer').astype('datetime64[ms]')    
-        dataframe = dataframe[::-1]
-        dataframe['close'] = pd.to_numeric(dataframe['close'])
-        return dataframe
-    
+        try:
+            dataframe = pd.DataFrame(self.get_kline()['result']['list'])
+            dataframe.columns = ['time', 'open', 'high', 'low', 'close', 'volume', 'turnover']
+            dataframe.set_index('time', inplace=True)
+            dataframe.index = pd.to_numeric(dataframe.index, downcast='integer').astype('datetime64[ms]')    
+            dataframe = dataframe[::-1]
+            dataframe['close'] = pd.to_numeric(dataframe['close'])
+            return dataframe
+        except Exception:
+            pass
     
 class Account(Client):
 
@@ -114,9 +116,14 @@ class Market(Client):
 
 
     def get_actual_coin_price(self) -> float:
-        orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
-        actual_price = float(orderbook.get('result').get('a')[0][0])
-        return actual_price
+        try:
+            orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
+            last_kline = float(Graph().get_kline(1).get('result').get('list')[0][4])
+            # actual_price = float(orderbook.get('result').get('a')[0][0])
+            return last_kline
+        except Exception as e:
+            logger.warning('actual price exception %s', e)
+            pass
     
     def cancel_order(self) -> None:
         try:
@@ -131,7 +138,8 @@ class Market(Client):
 
 if __name__ == '__main__':
     try:
-        Market()._purchase()
+        # Market()._purchase()
+        pass
         # Market().place_buy_order()
     except Exception as e:
         print(e)

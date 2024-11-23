@@ -31,13 +31,11 @@ class OrdersEdit:
     
     def get(self) -> list[float]:
         with open(self.path, 'r') as f:
-            filtered_file = []
             file = f.readlines()
-            for el in file:
-                if el != '':
-                    filtered_file.append(float(el.replace('\n', '')))
-            return filtered_file
-        
+            return [float(el.replace('\n', '')) for el in file if el != '']
+
+
+
     def qty(self) -> int:
         orders = self.get()
         return len(orders)
@@ -47,11 +45,14 @@ class OrdersEdit:
         avg = sum(self.get()) / (self.qty() if self.qty() != 0 else 1)
         return avg
     
+    def get_sum(self) -> float:
+        return sum(self.get())
+    
 
 orders = OrdersEdit()
 
 if __name__ == '__main__':
     try:
-        orders.get_open_orders()
+        print(orders.get())
     except Exception as e:
         print(e)
