@@ -50,6 +50,7 @@ class LapsEdit:
             f.write(f'{data}\n')
         return 200
     
+    
 
 if __name__ == '__main__':
     try:

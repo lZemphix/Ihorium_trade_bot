@@ -114,11 +114,14 @@ class Lines:
             last_two_klines = graph.get_kline(2)['result'].get('list')
             last_kline = float(last_two_klines[1][4])
             actual_price = market.get_actual_coin_price()
+            if actual_price == None:
+                logger.warning('cross utd == None')
+                return self.cross_utd()
 
             for sell_line in sell_lines.split('\n')[::-1]:
                 if last_kline > float(sell_line):
                     if actual_price < float(sell_line) and actual_price < last_kline:
-                        logger.info('last_knile= %s, sell_line= %s, actual_price= %s', last_kline, sell_line, actual_price)
+                        # logger.info('last_knile= %s, sell_line= %s, actual_price= %s', last_kline, sell_line, actual_price)
                         return True
         except Exception as e:
             logger.warning('utd exception %s', e)
@@ -132,11 +135,14 @@ class Lines:
             last_two_klines = graph.get_kline(2)['result'].get('list')
             last_kline = float(last_two_klines[1][4])
             actual_price = market.get_actual_coin_price()
+            if actual_price == None:
+                logger.warning('actual price None!')
+                return self.cross_dtu
 
             for buy_line in buy_lines.split('\n')[::-1]:
                 if last_kline < float(buy_line):
                     if actual_price > float(buy_line) and actual_price > last_kline:
-                        logger.info('last_knile= %s, buy_line= %s, actual_price= %s', last_kline, buy_line, actual_price)
+                        # logger.info('last_knile= %s, buy_line= %s, actual_price= %s', last_kline, buy_line, actual_price)
                         return True
         except Exception as e: 
             logger.warning('dtu exepton! %s', e)

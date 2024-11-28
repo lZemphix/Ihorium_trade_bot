@@ -91,7 +91,7 @@ class Bot(Base):
         actual_rsi: float = ta.momentum.rsi(df.close).iloc[-1]
         if actual_rsi > self.RSI + 2:
             if self.lines.cross_utd():
-                if (self.orders.avg_order() + self.stepSell) < self.market.get_actual_coin_price():
+                if (self.orders.avg_order() + self.stepSell) > self.market.get_actual_coin_price():
                     self.market.place_sell_order()
                     self.lines.clear()
                     self.orders.clear()
@@ -103,7 +103,7 @@ class Bot(Base):
         self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()["USDT"]}')
         logger.info('Bot started trading on pair %s', self.symbol)
         while True:
-                time.sleep(1)
+                time.sleep(3)
                 df = self.graph.get_kline_dataframe()
                 self.profit_edit.add_profit()
                 balance = self.account.get_balance()
@@ -172,7 +172,7 @@ class ProfitEdit(Base):
                 time_diff = (datetime.now() - last_date).total_seconds()
                 if time_diff > 86399:
                     actual_date = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-                    profit = self.orders.get_sum()
+                    profit = sum(self.laps.get())
                     self.write_profit(balance, actual_date, self.laps.qty(), profit)
 
         except:
