@@ -117,9 +117,7 @@ class Market(Client):
 
     def get_actual_coin_price(self) -> float:
         try:
-            orderbook = self.client.get_orderbook(symbol=self.symbol, category='spot')
             last_kline = float(Graph().get_kline(1).get('result').get('list')[0][4])
-            # actual_price = float(orderbook.get('result').get('a')[0][0])
             return last_kline
         except Exception as e:
             logger.warning('actual price exception %s', e)

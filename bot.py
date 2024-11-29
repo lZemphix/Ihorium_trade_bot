@@ -91,7 +91,7 @@ class Bot(Base):
         actual_rsi: float = ta.momentum.rsi(df.close).iloc[-1]
         if actual_rsi > self.RSI + 2:
             if self.lines.cross_utd():
-                if (self.orders.avg_order() + self.stepSell) > self.market.get_actual_coin_price():
+                if (self.orders.avg_order() + self.stepSell) < self.market.get_actual_coin_price():
                     self.market.place_sell_order()
                     self.lines.clear()
                     self.orders.clear()
