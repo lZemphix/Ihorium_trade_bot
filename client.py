@@ -19,6 +19,7 @@ class Client:
         self.API_KEY_SECRET = os.getenv("API_KEY_SECRET")
         self.accountType = os.getenv("ACCOUNT_TYPE")
         self.symbol = config.get('symbol')
+        self.coin_name = self.symbol[:-4]
         self.amount_buy = config.get('amountBuy')
         self.interval = config.get('interval')
         self.client = HTTP(testnet = False, api_key=self.API_KEY, api_secret=self.API_KEY_SECRET)
@@ -91,7 +92,7 @@ class Market(Client):
 
     def place_sell_order(self) -> None:
         try:
-            amount = float(Account().get_balance().get('SOL')[:5])
+            amount = float(Account().get_balance().get(self.coin_name)[:5])
             order = self.client.place_order(
                 category='spot',
                 symbol=self.symbol,
@@ -104,7 +105,7 @@ class Market(Client):
             self.place_sell_order()
 
     def _purchase(self) -> None:
-        amount = float(Account().get_balance().get('SOL')[:7])
+        amount = float(Account().get_balance().get(self.coin_name)[:7])
         if amount < 0.0231:
             self.client.place_order(
                     category='spot',
@@ -133,11 +134,10 @@ class Market(Client):
         except FailedRequestError as e:
             logger.error(e)
             return f"ErrorCode: {e.status_code}"
+        
 
 if __name__ == '__main__':
     try:
-        # Market()._purchase()
         pass
-        # Market().place_buy_order()
     except Exception as e:
         print(e)

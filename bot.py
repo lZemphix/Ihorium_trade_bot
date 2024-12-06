@@ -19,6 +19,7 @@ class Base:
         bot_config = self.get_config()
 
         self.symbol: str = bot_config.get('symbol')
+        self.coin_name = self.symbol[:-4]
         self.interval: str = bot_config.get('interval')
         self.amount_buy: float = bot_config.get('amountBuy')
         self.stepBuy: float = bot_config.get('stepBuy')
@@ -145,13 +146,13 @@ class ProfitEdit(Base):
     def write_first_profit(self, balance: int, date: str) -> None:
         entry = self._make_profit(balance, date, 0, 0)
         with open('config/profit.json' , 'w') as file: 
-            json.dump({'SOLUSDT': [entry]}, file, indent=4)
+            json.dump({self.symbol: [entry]}, file, indent=4)
 
     def write_profit(self, balance: int, date: str, laps_: int, profit: float) -> None:
             with open('config/profit.json', 'r') as f:
                 existing_data = json.load(f)
                 new_entry = self._make_profit(balance, date, laps_, profit)
-                existing_data['SOLUSDT'].append(new_entry)
+                existing_data[self.symbol].append(new_entry)
             with open('config/profit.json', 'w') as f:
                 json.dump(existing_data, f, indent=4)
                 self.laps.clear()
@@ -160,14 +161,14 @@ class ProfitEdit(Base):
         get_balance = self.account.get_balance()
         balance_usdt =float(get_balance.get('USDT'))
         try:
-            balance_sol = float(get_balance.get('SOL')) * self.market.get_actual_coin_price()
+            balance_coin = float(get_balance.get(self.coin_name)) * self.market.get_actual_coin_price()
         except:
-            balance_sol = 0
-        balance = round(balance_sol + balance_usdt, 2)
+            balance_coin = 0
+        balance = round(balance_coin + balance_usdt, 2)
         try:
             with open('config/profit.json', 'r') as f:
                 data = json.load(f)
-                last_date = data.get('SOLUSDT')[-1].get('date')
+                last_date = data.get(self.symbol)[-1].get('date')
                 last_date = datetime.strptime(last_date ,'%Y-%m-%d %H:%M:%S')
                 time_diff = (datetime.now() - last_date).total_seconds()
                 if time_diff > 86399:

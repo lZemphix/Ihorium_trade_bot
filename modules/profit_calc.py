@@ -5,17 +5,22 @@ import json
 import time
 import pandas as pd
 from modules.telenotify import SendNotify
+
 class Profit:
     def __init__(self) -> None:
+        with open('config/bot_config.json' , 'r') as f:
+            config = json.load(f)
         self.notify = SendNotify(True)
+        self.symbol = config.get('symbol')
 
     def profit_read(self):
         with open('config/profit.json', 'r') as f:
             return json.load(f)
         
     def create_df(self):
+        
         data = []
-        for one_day in self.profit_read().get('SOLUSDT'):
+        for one_day in self.profit_read().get(self.symbol):
             data.append(one_day)
         df = pd.DataFrame(data)
         df.set_index('date', inplace=True)
