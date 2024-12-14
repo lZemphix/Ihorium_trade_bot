@@ -78,21 +78,21 @@ class Market(Client):
 
     def place_buy_order(self) -> int:
         try:
-            if self.amount_buy >= 3.6:
-                order = self.client.place_order(
-                    category='spot',
-                    symbol=self.symbol,
-                    side='Buy',
-                    orderType='Market',
-                    qty=self.amount_buy,
-                )
+            order = self.client.place_order(
+                category='spot',
+                symbol=self.symbol,
+                side='Buy',
+                orderType='Market',
+                qty=self.amount_buy,
+            )
         except FailedRequestError as e:
             logger.error(e)
             return f"ErrorCode: {e.status_code}"
 
     def place_sell_order(self) -> None:
         try:
-            amount = float(Account().get_balance().get(self.coin_name)[:5])
+            amount = float(Account().get_balance().get(self.coin_name)[:4])
+            logger.info('amount= %s', amount)
             order = self.client.place_order(
                 category='spot',
                 symbol=self.symbol,
@@ -100,9 +100,12 @@ class Market(Client):
                 orderType='Market',
                 qty=amount
             )
-        except:
+        except Exception as e:
+            logger.info('except %s', e)
             self._purchase()
+            logger.info('purchase')
             self.place_sell_order()
+            logger.info('place_again')
 
     def _purchase(self) -> None:
         amount = float(Account().get_balance().get(self.coin_name)[:7])
@@ -133,11 +136,12 @@ class Market(Client):
             )
         except FailedRequestError as e:
             logger.error(e)
-            return f"ErrorCode: {e.status_code}"
+            return f"Cancel order ErrorCode: {e.status_code}"
         
 
 if __name__ == '__main__':
     try:
+        print(Market().get_actual_coin_price())
         pass
     except Exception as e:
         print(e)

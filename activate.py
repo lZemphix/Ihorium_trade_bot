@@ -13,7 +13,7 @@ def main() -> None:
         bot.start()
     except Exception as e:
         logger.error(traceback.format_exc())
-        logger.info('bot was stopped!')
+        logger.info('bot was stopped! Error: %s', e)
         with open('config/bot_config.json', 'r') as f:
             config = json.load(f)
             if config.get('send_notify'):

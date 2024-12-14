@@ -50,13 +50,13 @@ class Bot(Base):
 
     def first_buy(self):
         df = self.graph.get_kline_dataframe()
-        balance = self.account.get_balance()
         actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
         if actual_rsi < self.RSI:
             if self.lines.read('buy') == '':
-                logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                 self.market.place_buy_order()
                 time.sleep(1)
+                balance = self.account.get_balance()
+                logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                 last_order = self.orders.get_last_order()
                 self.orders.add(last_order)
                 self.lines.write(last_order)
@@ -65,18 +65,19 @@ class Bot(Base):
 
     def averaging(self) -> None:
         df = self.graph.get_kline_dataframe()
+        actual_rsi = ta.momentum.rsi(df.close).iloc[-1] if df != None else self.RSI + 1
         balance = self.account.get_balance()
-        actual_rsi = ta.momentum.rsi(df.close).iloc[-1]
         price_now = self.market.get_actual_coin_price()
 
-        if actual_rsi < self.RSI:
+        if actual_rsi <= self.RSI:
             if float(balance['USDT']) > self.amount_buy:
                 if self.lines.cross_dtu():
                     price_diff = (self.orders.get_last_order()- price_now)
                     if price_diff > self.stepBuy:
-                        logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                         self.market.place_buy_order()
                         time.sleep(1)
+                        balance = self.account.get_balance()
+                        logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                         last_order = self.orders.get_last_order()
                         self.orders.add(last_order)
                         self.lines.write(self.orders.avg_order(), 'sell')
@@ -98,7 +99,8 @@ class Bot(Base):
                     self.orders.clear()
                     self.notifies_edit.sell_notify()
                     nem_notify_status = False
-
+            else:
+                pass
 
     def start(self):
         self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()["USDT"]}')
