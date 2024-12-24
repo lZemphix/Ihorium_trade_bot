@@ -56,7 +56,7 @@ class Bot(Base):
                 self.market.place_buy_order()
                 time.sleep(1)
                 balance = self.account.get_balance()
-                logger.info('Аctual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
+                logger.info('Actual rsi= %s, balance= %s', actual_rsi, balance['USDT'])
                 last_order = self.orders.get_last_order()
                 self.orders.add(last_order)
                 self.lines.write(last_order)
@@ -160,11 +160,12 @@ class ProfitEdit(Base):
                 self.laps.clear()
 
     def add_profit(self):
-        get_balance = self.account.get_balance()
-        balance_usdt =float(get_balance.get('USDT'))
         try:
+            get_balance = self.account.get_balance()
+            balance_usdt =float(get_balance.get('USDT'))
             balance_coin = float(get_balance.get(self.coin_name)) * self.market.get_actual_coin_price()
         except:
+            balance_usdt = 0
             balance_coin = 0
         balance = round(balance_coin + balance_usdt, 2)
         try:
