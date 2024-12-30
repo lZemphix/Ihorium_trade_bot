@@ -1,9 +1,9 @@
+from config import logger_config as l
 from datetime import datetime
-import json
-from bot import bot
-import traceback
 from logging import getLogger
-from modules import logger as l
+from client.bot import bot
+import traceback
+import json
 
 logger = getLogger('root')
 
@@ -17,8 +17,7 @@ def main() -> None:
         with open('config/bot_config.json', 'r') as f:
             config = json.load(f)
             if config.get('send_notify'):
-                bot.notify.warning('Bot was stoped!')
-                bot.notify.error(f'Time: {datetime.now()}')
+                bot.notify.error(f'Bot was stopped! Time: {datetime.now()}')
 
 if __name__ == '__main__':    
     main()
