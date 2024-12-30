@@ -7,3 +7,4 @@ tests/
 logs/
 .env
 test.py
+src/
