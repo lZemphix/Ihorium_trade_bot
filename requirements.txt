@@ -3,7 +3,7 @@ certifi==2024.8.30
 charset-normalizer==3.3.2
 idna==3.8
 numpy==2.1.1
-pandas==2.2.2
+pandas==2.2.3
 pybit==5.8.0
 pycryptodome==3.20.0
 python-dateutil==2.9.0.post0

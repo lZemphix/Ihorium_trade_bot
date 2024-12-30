@@ -1,8 +1,9 @@
-.venv/
+config/bot_config.json
+report.xlsx
 __pycache__/
-.env
+.venv/
 setup/
 tests/
-.envyar
 logs/
-report.xlsx
+.env
+test.py
