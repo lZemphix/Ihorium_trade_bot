@@ -1,22 +1,18 @@
-import sys, os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import json
-from client import Account, Market
+from client.account import Account
+from client.market import Market
 from typing import Any
 
 class LapsEdit:
 
-    def __init__(self, path: str = 'config/.laps') -> None:
+    def __init__(self, path: str = 'src/.laps') -> None:
        self.path = path
        self.account = Account()
        self.market = Market()
 
-    
     def clear(self) -> int:
         with open(self.path, 'w') as f:
             pass
         return 200
-
     
     def get(self) -> list[float]:
         with open(self.path, 'r') as f:
@@ -49,11 +45,3 @@ class LapsEdit:
         with open(self.path, 'a') as f:
             f.write(f'{data}\n')
         return 200
-    
-    
-
-if __name__ == '__main__':
-    try:
-        LapsEdit().test()
-    except Exception as e:
-        print(e)

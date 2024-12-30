@@ -1,11 +1,11 @@
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import Any
-from client import Account, Market
+from client.base import Account, Market
 
 class OrdersEdit:
 
-    def __init__(self, path: str = 'config/.orders') -> None:
+    def __init__(self, path: str = 'src/.orders') -> None:
        self.path = path
 
        self.account = Account()
@@ -34,20 +34,16 @@ class OrdersEdit:
             file = f.readlines()
             return [float(el.replace('\n', '')) for el in file if el != '']
 
-
-
     def qty(self) -> int:
         orders = self.get()
         return len(orders)
         
-    
     def avg_order(self) -> float:
         avg = sum(self.get()) / (self.qty() if self.qty() != 0 else 1)
         return avg
     
     def get_sum(self) -> float:
         return sum(self.get())
-    
 
 orders = OrdersEdit()
 
