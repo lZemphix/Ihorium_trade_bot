@@ -2,7 +2,7 @@ from logging import DEBUG, INFO, WARNING, FileHandler, StreamHandler, basicConfi
 import logging
 
 DATE_FMT = '%Y-%m-%d %H:%M:%S'
-FORMAT = '%(asctime)s : %(module)-10s : %(lineno)-4s : %(levelname)-8s : %(message)s'
+FORMAT = '%(asctime)s : %(module)-15s : %(lineno)-4s : %(levelname)-8s : %(message)s'
 logger = getLogger(__name__)
 file = FileHandler('logs.log', mode='a')
 console = StreamHandler()
