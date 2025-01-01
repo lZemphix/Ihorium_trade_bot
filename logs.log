@@ -1,0 +1,494 @@
+2025-01-01 21:10:28 : activate   : 12   : INFO     : trying to start...
+2025-01-01 21:10:30 : bot        : 26   : INFO     : Bot activated. Pair: TONUSDT, balance: 11.73342539
+2025-01-01 21:10:34 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:10:34 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:10:36 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:10:36 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:10:37 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:10:37 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:10:38 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:10:41 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:10:41 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:10:42 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:10:42 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:10:43 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:10:43 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:10:44 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:10:47 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:10:47 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:10:49 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:10:49 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:10:49 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:10:49 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:10:50 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:10:54 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:10:54 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:10:55 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:10:55 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:10:55 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:10:55 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:10:56 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:00 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:00 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:01 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:01 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:02 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:02 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:04 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:07 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:07 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:08 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:08 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:09 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:09 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:10 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:13 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:13 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:14 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:14 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:15 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:15 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:16 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:20 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:20 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:21 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:21 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:22 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:22 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:23 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:26 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:26 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:28 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:28 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:28 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:28 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:29 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:32 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:32 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:34 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:34 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:34 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:34 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:35 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:38 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:38 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:40 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:40 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:41 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:41 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:42 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:45 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:45 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:47 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:47 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:48 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:48 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:48 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:52 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:52 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:11:53 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:11:53 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:11:53 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:11:53 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:11:54 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:11:58 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:11:58 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:00 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:00 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:00 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:00 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:01 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:12:04 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:04 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:06 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:06 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:07 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:07 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:08 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:12:11 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:11 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:12 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:12 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:12 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:12 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:13 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:12:16 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:16 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:18 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:18 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:18 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:18 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:19 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:12:19 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:12:19 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:12:23 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:23 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:24 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:24 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:24 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:24 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:25 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:12:25 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:12:25 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:12:29 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:29 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:30 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:30 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:30 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:30 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:31 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:12:31 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:12:31 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:12:34 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:34 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:35 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:35 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:36 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:36 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:40 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:40 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:41 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:41 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:42 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:42 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:46 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:46 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:47 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:47 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:48 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:48 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:12:52 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:12:52 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:12:55 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:12:55 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:12:56 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:12:56 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:00 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:00 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:01 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:01 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:02 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:02 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:06 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:06 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:07 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:07 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:08 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:08 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:12 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:12 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:13 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:13 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:14 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:14 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:20 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:20 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:21 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:21 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:22 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:22 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:26 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:26 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:27 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:27 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:28 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:28 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:32 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:32 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:34 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:34 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:35 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:35 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:39 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:39 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:40 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:40 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:41 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:41 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:45 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:45 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:47 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:47 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:48 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:48 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:13:53 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:13:53 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:13:55 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:13:55 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:13:55 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:13:55 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:00 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:00 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:01 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:01 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:02 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:02 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:06 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:06 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:08 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:08 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:09 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:09 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:13 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:13 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:14 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:14 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:15 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:15 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:19 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:19 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:20 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:20 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:21 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:21 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:26 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:26 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:28 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:28 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:29 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:29 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:34 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:34 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:36 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:36 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:36 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:36 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:40 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:40 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:42 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:42 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:42 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:42 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:47 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:47 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:49 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:49 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:49 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:49 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:50 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:14:54 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:14:54 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:14:55 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:14:55 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:14:55 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:14:55 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:14:56 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:00 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:00 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:01 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:01 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:02 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:02 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:03 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:03 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:03 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:07 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:07 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:08 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:08 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:09 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:09 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:10 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:10 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:10 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:13 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:13 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:14 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:14 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:15 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:15 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:16 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:16 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:16 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:19 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:19 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:20 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:20 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:21 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:21 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:22 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:22 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:22 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:26 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:26 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:27 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:27 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:28 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:28 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:29 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:29 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:29 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:33 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:33 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:34 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:34 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:35 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:35 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:36 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:36 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:36 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:39 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:39 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:41 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:41 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:42 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:42 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:43 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:43 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:43 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:46 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:46 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:48 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:48 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:49 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:49 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:50 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:50 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:50 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:15:53 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:15:53 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:15:56 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:15:56 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:15:56 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:15:56 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:15:58 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:15:58 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:15:58 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:16:01 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:16:01 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:16:02 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:16:02 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:16:03 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:16:03 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:16:05 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:16:05 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:16:05 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:16:08 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:16:08 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:16:10 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:16:10 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:16:11 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:16:11 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:16:12 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:16:12 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:16:12 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:16:13 : activate   : 12   : INFO     : trying to start...
+2025-01-01 21:16:14 : bot        : 26   : INFO     : Bot activated. Pair: TONUSDT, balance: 11.73342539
+2025-01-01 21:16:18 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:16:18 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:16:22 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:16:22 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:16:23 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:16:23 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:16:24 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:16:24 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:16:24 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:16:24 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:17:19 : activate   : 12   : INFO     : trying to start...
+2025-01-01 21:17:20 : bot        : 26   : INFO     : Bot activated. Pair: TONUSDT, balance: 11.73342539
+2025-01-01 21:17:24 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:17:24 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:17:26 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:17:26 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:17:27 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:17:27 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:17:28 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:17:28 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:17:28 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:17:28 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:17:32 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:17:32 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:17:33 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:17:33 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:17:34 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:17:34 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:17:35 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:17:35 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:17:35 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:17:35 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:17:57 : activate   : 12   : INFO     : trying to start...
+2025-01-01 21:17:59 : bot        : 26   : INFO     : Bot activated. Pair: TONUSDT, balance: 11.73342539
+2025-01-01 21:18:02 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:18:02 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:18:05 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:18:05 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:18:06 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:18:06 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:18:07 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:18:07 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:18:07 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:18:07 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:18:11 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:18:11 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:18:13 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:18:13 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:18:13 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:18:13 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:18:15 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:18:15 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:18:15 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:18:15 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:18:25 : activate   : 12   : INFO     : trying to start...
+2025-01-01 21:18:27 : bot        : 26   : INFO     : Bot activated. Pair: TONUSDT, balance: 11.73342539
+2025-01-01 21:18:30 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:18:30 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:18:33 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:18:33 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:18:34 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:18:34 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:18:35 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:18:35 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:18:35 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:18:35 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:18:41 : activate   : 12   : INFO     : trying to start...
+2025-01-01 21:18:42 : bot        : 26   : INFO     : Bot activated. Pair: TONUSDT, balance: 11.73342539
+2025-01-01 21:18:45 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:18:45 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:18:48 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:18:48 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:18:49 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:18:49 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:18:50 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:18:50 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:18:50 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:18:50 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:18:54 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:18:54 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:18:56 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:18:56 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:18:56 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:18:56 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:18:57 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:18:57 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:18:57 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:18:57 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:19:01 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:19:01 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:19:03 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:19:03 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:19:04 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:19:04 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:19:05 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:19:05 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:19:05 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:19:05 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:19:09 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:19:09 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:19:10 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:19:10 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:19:11 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:19:11 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:19:12 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:19:12 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:19:12 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:19:12 : sell       : 42   : DEBUG    : actual price higher than avg buy price
+2025-01-01 21:19:17 : bot        : 41   : DEBUG    : trying "averaging"
+2025-01-01 21:19:17 : bot        : 43   : DEBUG    : activating averaging script
+2025-01-01 21:19:18 : averating  : 20   : DEBUG    : init success
+2025-01-01 21:19:18 : bot        : 47   : DEBUG    : sell lines qty > 0. Activating sell script
+2025-01-01 21:19:19 : sell       : 22   : DEBUG    : init success
+2025-01-01 21:19:19 : sell       : 38   : DEBUG    : rsi diff: success
+2025-01-01 21:19:21 : lines_control : 108  : DEBUG    : last kline upper than sell line
+2025-01-01 21:19:21 : lines_control : 110  : DEBUG    : actual price lower than sell line
+2025-01-01 21:19:21 : sell       : 40   : DEBUG    : cross up to down: success
+2025-01-01 21:19:21 : sell       : 42   : DEBUG    : actual price higher than avg buy price
