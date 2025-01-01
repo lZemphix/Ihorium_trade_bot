@@ -1,6 +1,5 @@
 from client.base import Base
 from logging import getLogger
-from modules.notifies_manager import NotifiesEdit
 from modules.profit_manager import ProfitEdit
 from scripts.averating import Averating
 from scripts.first_buy import Buy
@@ -15,13 +14,27 @@ class Bot(Base):
     def __init__(self) -> None:
         super().__init__()
         self.profit_edit = ProfitEdit()
-        self.notifies_edit = NotifiesEdit()
         self.averating_script = Averating()
         self.buy_script = Buy()
         self.sell_script = Sell()
-        
 
-    def start(self):
+    def sell_notify(self) -> None:
+        self.lines.clear()
+        self.orders.clear()
+        logger.debug('lines and orders clear. nem status: %s', self.nem_notify_status)
+        time.sleep(2)
+        last_order = self.orders.get_last_order()
+        logger.info('Sold for %s', last_order)
+        self.notify.sold(f'Sold for {last_order}')
+        self.laps.add(self.laps.calculate_profit())
+        self.nem_notify_status = False
+        
+    def not_enough_money_notify(self) -> None:
+        logger.info('Not enough money')
+        self.notify.warning('Not enough money!')
+        self.nem_notify_status = False
+
+    def start(self) -> None:
         self.notify.bot_status(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()["USDT"]}')
         logger.info(f'Bot activated. Pair: {self.symbol}, balance: {self.account.get_balance()["USDT"]}')
         while True:
@@ -46,6 +59,7 @@ class Bot(Base):
                 if self.lines.sell_lines_qty() > 0:
                     logger.debug('sell lines qty > 0. Activating sell script')
                     self.sell_script.activate()
+                    self.sell_notify()
 
                 if self.orders.qty() != 0:
                     if self.sell_script.nem_notify_status == False:
