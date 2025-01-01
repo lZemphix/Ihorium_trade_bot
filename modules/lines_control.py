@@ -90,17 +90,6 @@ class Lines:
         elif mode == 'buy':
             with open(self.buy_lines_path, 'w'):
                 pass
-
-    def check_uper_line(self) -> int:
-        market = base.Market()
-        actual_price = market.get_actual_coin_price()
-        sell_lines = self.read('sell')
-        count = 0
-        f_sell_lines = [item for item in sell_lines.split('\n') if item != '']
-        for line in f_sell_lines:
-            if actual_price > float(line):
-                count += 1
-        return count
         
     def cross_utd(self) -> bool:
         try:
@@ -116,8 +105,11 @@ class Lines:
 
             for sell_line in sell_lines.split('\n')[::-1]:
                 if last_kline > float(sell_line):
-                    if actual_price < float(sell_line) and actual_price < last_kline:
-                        return True
+                    logger.debug('last kline upper than sell line')
+                    if actual_price < float(sell_line): 
+                        logger.debug('actual price lower than sell line')
+                        if actual_price < last_kline:
+                            return True
         except Exception as e:
             logger.warning('utd exception %s', e)
             pass  
@@ -136,15 +128,19 @@ class Lines:
 
             for buy_line in buy_lines.split('\n')[::-1]:
                 if last_kline < float(buy_line):
-                    if actual_price > float(buy_line) and actual_price > last_kline:
-                        return True
+                    logger.debug('last kline lower than buy line')
+                    if actual_price > float(buy_line):
+                        logger.debug('actual price higher than buy line')
+                        if actual_price > last_kline:
+                            logger.debug('actual price higher than last kline')
+                            return True
         except Exception as e: 
             logger.warning('dtu exepton! %s', e)
             pass
                 
 if __name__ == '__main__':
     try:
-        Lines().write(sys.argv[0])
+        Lines().write(float(sys.argv[1]))
         print('ok')
     except:
         print('error')
