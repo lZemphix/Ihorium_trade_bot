@@ -1,15 +1,13 @@
 from logging import getLogger
 import ta
 from client.base import Base
-from modules.notifies_manager import NotifiesEdit
 
 logger = getLogger(__name__)
 
-class Sell(NotifiesEdit, Base):
+class Sell(Base):
      
     def __init__(self) -> None:
         super().__init__()
-        self.nem_notify_status = True
 
     def __init(self) -> None:
         try:
@@ -24,13 +22,6 @@ class Sell(NotifiesEdit, Base):
         except:
             logger.debug('init succes with incorrect data')
             return False, False
-
-    def order_line_notify_config(self) -> None:
-        self.lines.clear()
-        self.orders.clear()
-        self.notifies_edit.sell_notify()
-        self.nem_notify_status = False
-        logger.debug('lines and orders clear. nem status: %s', self.nem_notify_status)
 
     def activate(self) -> None:
         rsi_diff, actual_price_higher = self.__init()
