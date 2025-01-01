@@ -1,5 +1,5 @@
 import json
-from logging import getLogger
+from logging import ERROR, WARNING, getLogger
 import os
 from dotenv import load_dotenv
 from pybit.unified_trading import HTTP
@@ -19,4 +19,5 @@ class Client:
         self.symbol = config.get('symbol')
         self.amount_buy = config.get('amountBuy')
         self.interval = config.get('interval')
-        self.client = HTTP(testnet = False, api_key=self.API_KEY, api_secret=self.API_KEY_SECRET)
+        self.client = HTTP(testnet=False, api_key=self.API_KEY, api_secret=self.API_KEY_SECRET, logging_level=30)
+        # print(self.client)

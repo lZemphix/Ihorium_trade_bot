@@ -22,7 +22,8 @@ class Market(Client):
 
     def place_sell_order(self) -> None:
         try:
-            amount = float(Account().get_balance().get('SOL')[:5])
+            coin_name = self.symbol[:-4]
+            amount = float(Account().get_balance().get(coin_name)[:4])
             self.client.place_order(
                 category='spot',
                 symbol=self.symbol,
@@ -30,22 +31,8 @@ class Market(Client):
                 orderType='Market',
                 qty=amount
             )
-        except:
-            self._purchase()
-            time.sleep(2)
-            self.place_sell_order()
-
-    def _purchase(self) -> None:
-        amount = float(Account().get_balance().get('SOL')[:7])
-        if amount < 0.0231:
-            self.client.place_order(
-                    category='spot',
-                    symbol=self.symbol,
-                    side='Buy',
-                    orderType='Market',
-                    qty=1,
-                )
-
+        except Exception as e:
+            print(e)
 
     def get_actual_coin_price(self) -> float:
         try:

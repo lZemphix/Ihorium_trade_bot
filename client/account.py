@@ -20,5 +20,6 @@ class Account(Client):
                 coin_values[get_balance[n].get('coin')] = (get_balance[n].get('walletBalance'))
             if coin_values != {}:
                 return coin_values
-        except:
+        except Exception as e:
+            print(e)
             return {}

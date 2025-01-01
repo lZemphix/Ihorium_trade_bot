@@ -8,7 +8,7 @@ import json
 logger = getLogger('root')
 
 def main() -> None:
-    try:   
+    try:
         logger.info('trying to start...')
         bot.start()
     except Exception as e:

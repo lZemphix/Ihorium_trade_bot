@@ -9,6 +9,7 @@ from modules.orders_config import OrdersEdit
 from modules.telenotify import SendNotify
 import json
 
+
 load_dotenv()
 
 logger = getLogger(__name__)
@@ -35,7 +36,6 @@ class Base:
         self.lines = Lines()
         self.notify = SendNotify(True if self.send_notify else False)
         
-
     @staticmethod
     def get_config():
         with open('config/bot_config.json', 'r') as f:

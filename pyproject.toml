@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "Ihorium Trade-bot"
 
-version = "1.3.1"
+version = "1.4.1"
 
 readme = "README.md"
 
@@ -14,7 +14,7 @@ requires-python = ">=3.10"
 
 license = { file = "LICENSE.txt" }
 
-authors = [{name = "Zemphix", email = "zemphix@gmail.com"}]
+authors = [{ name = "Zemphix", email = "zemphix@gmail.com" }]
 
 maintainers = [{ name = "Uzgramor", email = "None" }]
 
