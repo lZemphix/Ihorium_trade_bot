@@ -23,14 +23,15 @@ class Sell(Base):
             logger.debug('init succes with incorrect data')
             return False, False
 
-    def activate(self) -> None:
+    def activate(self) -> bool:
         rsi_diff, actual_price_higher = self.__init()
         if rsi_diff:
             logger.debug('rsi diff: success')
             if self.lines.cross_utd():
                 logger.debug('cross up to down: success')
-                # if actual_price_higher:
-                logger.debug('actual price higher than avg buy price')
-                self.market.place_sell_order()
+                if actual_price_higher:
+                    logger.debug('actual price higher than avg buy price')
+                    self.market.place_sell_order()
+                    return True
                         
                 
