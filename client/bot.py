@@ -17,6 +17,7 @@ class Bot(Base):
         self.averating_script = Averating()
         self.buy_script = Buy()
         self.sell_script = Sell()
+        self.nem_notify_status = True
 
     def sell_notify(self) -> None:
         self.lines.clear()
@@ -58,11 +59,11 @@ class Bot(Base):
 
                 if self.lines.sell_lines_qty() > 0:
                     logger.debug('sell lines qty > 0. Activating sell script')
-                    self.sell_script.activate()
-                    self.sell_notify()
+                    if self.sell_script.activate():
+                        self.sell_notify()
 
                 if self.orders.qty() != 0:
-                    if self.sell_script.nem_notify_status == False:
+                    if self.nem_notify_status == False:
                         if(float(balance.get('USDT')) < self.amount_buy):
                             self.notifies_edit.not_enough_money_notify()
 
