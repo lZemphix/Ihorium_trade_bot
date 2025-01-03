@@ -8,3 +8,4 @@ logs/
 .env
 test.py
 src/
+graphs/
